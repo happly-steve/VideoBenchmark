@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtNetwork>
 #include <QDebug>
+#include "client.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,20 +20,23 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QString tmp;
-    QTcpSocket *tcpSocket;
+    Client *client;
+
+signals:
+    void needToConnect(QString ip);
+    void needToDisconnect();
 
 public slots:
-    void onReadyRead();
-    void getResponse();
-    void printError();
+    void printResponse(QString response);
+    void printError(QString errstr);
     void disconnectedFromHost();
     void connectedToHost();
-
+    //void printState(QAbstractSocket::SocketState currState);
+    void unableToConnect();
 
 private slots:
     void on_connectButton_clicked();
-    //void on_disconnectButton_clicked();
-    void on_pushButton2_clicked();
+    void on_disconnectButton_clicked();
+
 };
 #endif // MAINWINDOW_H

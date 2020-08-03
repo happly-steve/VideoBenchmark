@@ -12,11 +12,19 @@ class TCP : public QObject
 public:
     explicit TCP(QObject *parent = nullptr);
 
+private:
+    QTcpServer *tcpServer;
+    QTcpSocket *tcpSocket;
+    QTimer *timer;
+
 signals:
     void dataReceived();
 
 private slots:
     void onTimeoutCMD();
+    void onNewConnection();
+    void onError(QAbstractSocket::SocketError err);
+    void sendResponse();
 
 };
 
