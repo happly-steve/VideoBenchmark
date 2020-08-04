@@ -12,25 +12,25 @@ class DataSource : public QObject
 
 public:
     explicit DataSource(QObject *parent = nullptr);
-    QString cmd = "lol";
-    int length = 0;
-    QString data = "nolol";
-    QString dataPacket;
-
-private:
     struct Packet {
         QString cmd;
         QString length;
         QString data;
     };
+    QTimer *timer = nullptr;
+
+private:
+    QString cmd = "lol";
+    int length = 0;
+    QString data = "nolol";
+    QString dataPacket;
 
 signals:
-    void dataReceived();
+    void dataReceived(QString rdata);
 
 public slots:
-    void getData();
+//    void getData();
     void setData();
-    void onTimeoutCMD();
 
 };
 

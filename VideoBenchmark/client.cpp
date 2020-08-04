@@ -2,14 +2,10 @@
 
 Client::Client(QObject *parent) : QObject(parent)
 {
-    tcpSocket = new QTcpSocket(this);
     statetimer = new QTimer();
-
+//  Проверяет состояние подключения каждые 2 сек
     connect(statetimer, SIGNAL(timeout()),
             this, SLOT(getState()));
-
-    connect(tcpSocket, SIGNAL(readyRead()),
-            this, SLOT(getResponse()));
 
 }
 void Client::connectToHost(QString mip)
@@ -24,7 +20,7 @@ void Client::connectToHost(QString mip)
     else {
         emit connected();
     }
-    statetimer->start(1500);
+    statetimer->start(2000);
 }
 void Client::disconnectFromHost()
 {
@@ -32,18 +28,59 @@ void Client::disconnectFromHost()
     emit disconnected();
     statetimer->stop();
 }
-void Client::getState() {
+
+void Client::disconnectFromUdp()
+{
+    udpSocket->disconnectFromHost();
+    emit disconnected();
+}
+void Client::getState()
+{
     currState = tcpSocket->state();
 //    emit state(currState);
     qDebug() << currState;
-    if (!tcpSocket->waitForConnected(3000)) {
-        emit noConnection();
-        tcpSocket->connectToHost(ip, 5000);
-    }
+    emit noConnection();
+
 }
-void Client::getResponse() {
+void Client::getResponse()
+{
     tmp = QString::fromLatin1(tcpSocket->readAll());
+    if (statetimer->isActive()){
+        statetimer->stop();
+        statetimer->start(2000);
+    }
     emit response(tmp);
 }
+void Client::getUdpData()
+{
+    if (udpSocket->hasPendingDatagrams()) {
+        QByteArray dg;
+        dg.resize(udpSocket->pendingDatagramSize());
+        udpSocket->readDatagram(dg.data(), dg.size());
+        tmp = QString::fromLatin1(dg);
+        emit response(tmp);
+    }
+}
+void Client::newProtocol(int protocol) {
+    switch (protocol) {
+        case 1:
+            tcpSocket = new QTcpSocket(this);
+        //  Получает данные по протоколу tcp после подключения
+            connect(tcpSocket, SIGNAL(readyRead()),
+                    this, SLOT(getResponse()));
+            break;
 
+        case 2:
+            udpSocket = new QUdpSocket(this);
+            udpSocket->bind(QHostAddress::Any, 9877);
+        //  Получает данные по протоколу udp после подключения
+            connect(udpSocket, SIGNAL(readyRead()),
+                    this, SLOT(getUdpData()));
+            break;
 
+        default:
+            emit error("Wrong protocol");
+            qDebug() << "Wrong protocol";
+            break;
+    }
+}

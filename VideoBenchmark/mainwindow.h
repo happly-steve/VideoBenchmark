@@ -25,18 +25,23 @@ private:
 signals:
     void needToConnect(QString ip);
     void needToDisconnect();
+    void changeProtocol(int i);
+    void needToConnectUdp();
+    void needToDisconnectUdp();
 
 public slots:
     void printResponse(QString response);
     void printError(QString errstr);
     void disconnectedFromHost();
     void connectedToHost();
-    //void printState(QAbstractSocket::SocketState currState);
+    void printState(QAbstractSocket::SocketState currState);
     void unableToConnect();
 
 private slots:
     void on_connectButton_clicked();
     void on_disconnectButton_clicked();
-
+    void on_clearButton_clicked();
+    void on_checkTcp_stateChanged(int arg1);
+    void on_checkUdp_stateChanged(int arg1);
 };
 #endif // MAINWINDOW_H

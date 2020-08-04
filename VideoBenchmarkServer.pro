@@ -17,7 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         datasource.cpp \
         main.cpp \
-        tcp.cpp
+        tcp.cpp \
+        udp.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -27,4 +28,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     datasource.h \
     packet.h \
-    tcp.h
+    tcp.h \
+    udp.h

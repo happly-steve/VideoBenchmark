@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtNetwork>
 #include <QString>
+#include "datasource.h"
 
 class TCP : public QObject
 {
@@ -13,18 +14,15 @@ public:
     explicit TCP(QObject *parent = nullptr);
 
 private:
-    QTcpServer *tcpServer;
-    QTcpSocket *tcpSocket;
-    QTimer *timer;
-
-signals:
-    void dataReceived();
+    QTcpServer *tcpServer = nullptr;
+    QTcpSocket *tcpSocket = nullptr;
+    DataSource *ds = nullptr;
 
 private slots:
-    void onTimeoutCMD();
     void onNewConnection();
     void onError(QAbstractSocket::SocketError err);
     void sendResponse();
+    void sendData(QString rdata);
 
 };
 

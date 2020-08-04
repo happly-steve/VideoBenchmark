@@ -13,7 +13,8 @@ public:
 
 private:
     QString tmp;
-    QTcpSocket *tcpSocket;
+    QTcpSocket *tcpSocket = nullptr;
+    QUdpSocket *udpSocket = nullptr;
     QString ip;
     QTimer *statetimer;
     QAbstractSocket::SocketState currState;
@@ -29,8 +30,11 @@ signals:
 public slots:
     void connectToHost(QString mip);
     void disconnectFromHost();
+    void disconnectFromUdp();
     void getState();
     void getResponse();
+    void getUdpData();
+    void newProtocol(int protocol);
 
 };
 
