@@ -1,13 +1,21 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QString protocol, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->scrollArea->setWidget(ui->logLabel);
-    client = new Client();
+    if (protocol == "tcp") {
+        ui->checkTcp->setChecked(true);
+        ui->checkUdp->setChecked(false);
+    }
+    if (protocol == "udp") {
+        ui->checkTcp->setChecked(false);
+        ui->checkUdp->setChecked(true);
+    }
+    client = new Client(protocol);
 //  Вызывает запрос на подключение к хосту по tcp
     connect(this, SIGNAL(needToConnect(QString)),
             client, SLOT(connectToHost(QString)));
@@ -119,15 +127,11 @@ void MainWindow::disconnectedFromHost()
 void MainWindow::on_connectButton_clicked()
 {
     if (ui->checkTcp->isChecked()) {
-        emit changeProtocol(1);
         emit needToConnect(ui->ipToConnect->text());
     }
     if (ui->checkUdp->isChecked()) {
-        emit changeProtocol(2);
         emit needToConnectUdp();
     }
-//    ui->checkTcp->setCheckable(false);
-//    ui->checkUdp->setCheckable(false);
 }
 void MainWindow::on_disconnectButton_clicked()
 {
@@ -137,26 +141,8 @@ void MainWindow::on_disconnectButton_clicked()
     if (ui->checkUdp->isChecked()) {
         emit needToDisconnectUdp();
     }
-//    ui->checkTcp->setCheckable(true);
-//    ui->checkUdp->setCheckable(true);
 }
 void MainWindow::on_clearButton_clicked()
 {
     ui->logLabel->setText("");
-}
-
-void MainWindow::on_checkTcp_stateChanged(int arg1)
-{
-    if (ui->checkTcp->isChecked()) {
-        emit changeProtocol(1);
-        qDebug() << "tcp";
-    }
-}
-
-void MainWindow::on_checkUdp_stateChanged(int arg1)
-{
-    if (ui->checkUdp->isChecked()) {
-        emit changeProtocol(2);
-        qDebug() << "udp";
-    }
 }

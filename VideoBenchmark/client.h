@@ -9,7 +9,7 @@ class Client : public QObject
 {
     Q_OBJECT
 public:
-    explicit Client(QObject *parent = nullptr);
+    explicit Client(QString protocol, QObject *parent = nullptr);
 
 private:
     QString tmp;
@@ -34,7 +34,6 @@ public slots:
     void getState();
     void getResponse();
     void getUdpData();
-    void newProtocol(int protocol);
 
 };
 

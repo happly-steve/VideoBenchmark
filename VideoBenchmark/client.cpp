@@ -1,7 +1,35 @@
 #include "client.h"
 
-Client::Client(QObject *parent) : QObject(parent)
+Client::Client(QString protocol, QObject *parent) : QObject(parent)
 {
+    int proto = 1;
+    if (protocol == "tcp") {
+        proto = 1;
+    }
+    if (protocol == "udp") {
+        proto = 2;
+    }
+    switch (proto) {
+        case 1:
+            tcpSocket = new QTcpSocket(this);
+        //  Получает данные по протоколу tcp после подключения
+            connect(tcpSocket, SIGNAL(readyRead()),
+                    this, SLOT(getResponse()));
+            break;
+
+        case 2:
+            udpSocket = new QUdpSocket(this);
+            udpSocket->bind(QHostAddress::Any, 9877);
+        //  Получает данные по протоколу udp после подключения
+            connect(udpSocket, SIGNAL(readyRead()),
+                    this, SLOT(getUdpData()));
+            break;
+
+        default:
+            emit error("Wrong protocol");
+            qDebug() << "Wrong protocol";
+            break;
+    }
     statetimer = new QTimer();
 //  Проверяет состояние подключения каждые 2 сек
     connect(statetimer, SIGNAL(timeout()),
@@ -59,28 +87,5 @@ void Client::getUdpData()
         udpSocket->readDatagram(dg.data(), dg.size());
         tmp = QString::fromLatin1(dg);
         emit response(tmp);
-    }
-}
-void Client::newProtocol(int protocol) {
-    switch (protocol) {
-        case 1:
-            tcpSocket = new QTcpSocket(this);
-        //  Получает данные по протоколу tcp после подключения
-            connect(tcpSocket, SIGNAL(readyRead()),
-                    this, SLOT(getResponse()));
-            break;
-
-        case 2:
-            udpSocket = new QUdpSocket(this);
-            udpSocket->bind(QHostAddress::Any, 9877);
-        //  Получает данные по протоколу udp после подключения
-            connect(udpSocket, SIGNAL(readyRead()),
-                    this, SLOT(getUdpData()));
-            break;
-
-        default:
-            emit error("Wrong protocol");
-            qDebug() << "Wrong protocol";
-            break;
     }
 }
