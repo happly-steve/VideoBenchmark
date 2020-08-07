@@ -2,7 +2,6 @@
 
 Client::Client(QString protocol, QObject *parent) : QObject(parent)
 {
-    int proto = 1;
     if (protocol == "tcp") {
         proto = 1;
     }
@@ -12,34 +11,33 @@ Client::Client(QString protocol, QObject *parent) : QObject(parent)
     switch (proto) {
         case 1:
             tcpSocket = new QTcpSocket(this);
-        //  Получает данные по протоколу tcp после подключения
+//          Получает данные по протоколу tcp после подключения
             connect(tcpSocket, SIGNAL(readyRead()),
-                    this, SLOT(getResponse()));
+                    this, SLOT(getTcpResponse()));
             break;
 
         case 2:
             udpSocket = new QUdpSocket(this);
-            udpSocket->bind(QHostAddress::Any, 9877);
-        //  Получает данные по протоколу udp после подключения
+            udpSocket->open(QIODevice::ReadOnly);
+//          Получает данные по протоколу udp после подключения
             connect(udpSocket, SIGNAL(readyRead()),
-                    this, SLOT(getUdpData()));
+                    this, SLOT(getUdpResponse()));
             break;
 
         default:
             emit error("Wrong protocol");
             qDebug() << "Wrong protocol";
-            break;
+        break;
     }
     statetimer = new QTimer();
-//  Проверяет состояние подключения каждые 2 сек
+//  Проверяет состояние подключения каждые 3 сек
     connect(statetimer, SIGNAL(timeout()),
             this, SLOT(getState()));
 
 }
-void Client::connectToHost(QString mip)
+void Client::connectTcp(QString mip)
 {
-    ip = mip;
-    tcpSocket->connectToHost(ip, 5000);
+    tcpSocket->connectToHost(mip, 5000);
     if (!tcpSocket->waitForConnected(3000)) {
         emit noConnection();
         QString errstr = tcpSocket->errorString();
@@ -50,27 +48,43 @@ void Client::connectToHost(QString mip)
     }
     statetimer->start(2000);
 }
-void Client::disconnectFromHost()
+void Client::connectUdp(QString hip) {
+    hostIp = QHostAddress(hip);
+    udpSocket->bind(9877);
+    emit connected();
+    statetimer->start(3000);
+}
+void Client::disconnectFromTcp()
 {
     tcpSocket->disconnectFromHost();
     emit disconnected();
     statetimer->stop();
 }
-
 void Client::disconnectFromUdp()
 {
-    udpSocket->disconnectFromHost();
+    udpSocket->abort();
     emit disconnected();
+    statetimer->stop();
 }
 void Client::getState()
 {
-    currState = tcpSocket->state();
-//    emit state(currState);
+    if (proto == 1) {
+        currState = tcpSocket->state();
+    }
+    if (proto == 2) {
+        currState = udpSocket->state();
+    }
+//  emit state(currState);
     qDebug() << currState;
     emit noConnection();
-
+    if (proto == 1) {
+        connectTcp(hostIp.toString());
+    }
+    if (proto == 2) {
+        connectUdp(hostIp.toString());
+    }
 }
-void Client::getResponse()
+void Client::getTcpResponse()
 {
     tmp = QString::fromLatin1(tcpSocket->readAll());
     if (statetimer->isActive()){
@@ -79,13 +93,17 @@ void Client::getResponse()
     }
     emit response(tmp);
 }
-void Client::getUdpData()
+void Client::getUdpResponse()
 {
     if (udpSocket->hasPendingDatagrams()) {
         QByteArray dg;
         dg.resize(udpSocket->pendingDatagramSize());
         udpSocket->readDatagram(dg.data(), dg.size());
         tmp = QString::fromLatin1(dg);
+        if (statetimer->isActive()){
+            statetimer->stop();
+            statetimer->start(3000);
+        }
         emit response(tmp);
     }
 }

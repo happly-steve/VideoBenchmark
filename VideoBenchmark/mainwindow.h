@@ -23,9 +23,9 @@ private:
     Client *client;
 
 signals:
-    void needToConnect(QString ip);
-    void needToDisconnect();
-    void needToConnectUdp();
+    void needToConnectTcp(QString ip);
+    void needToDisconnectTcp();
+    void needToConnectUdp(QString ip);
     void needToDisconnectUdp();
 
 public slots:

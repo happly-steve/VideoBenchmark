@@ -17,7 +17,6 @@ TCP::TCP(QObject *parent) : QObject(parent)
     connect(tcpServer, SIGNAL(acceptError(QAbstractSocket::SocketError)),
             this, SLOT(onError(QAbstractSocket::SocketError)));
 
-
 }
 void TCP::onNewConnection()
 {
@@ -25,17 +24,15 @@ void TCP::onNewConnection()
     tcpSocket = tcpServer->nextPendingConnection();
     sendResponse();
 }
-
 void TCP::onError(QAbstractSocket::SocketError err)
 {
-    qDebug() << tcpServer->errorString();
+//    QLOG_DEBUG() << tcpServer->errorString();
 }
-
 void TCP::sendResponse()
 {
-        QByteArray response = QString("Hello").toLatin1();
-        tcpSocket->write(response);
-        qDebug() << "Send response";
+    QByteArray response = QString("Hello").toLatin1();
+    tcpSocket->write(response);
+    qDebug() << "Send response";
 }
 void TCP::sendData(QString rdata)
 {

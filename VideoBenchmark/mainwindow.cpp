@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+
+
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QString protocol, QWidget *parent)
@@ -7,6 +9,10 @@ MainWindow::MainWindow(QString protocol, QWidget *parent)
 {
     ui->setupUi(this);
     ui->scrollArea->setWidget(ui->logLabel);
+
+
+
+
     if (protocol == "tcp") {
         ui->checkTcp->setChecked(true);
         ui->checkUdp->setChecked(false);
@@ -17,18 +23,18 @@ MainWindow::MainWindow(QString protocol, QWidget *parent)
     }
     client = new Client(protocol);
 //  Вызывает запрос на подключение к хосту по tcp
-    connect(this, SIGNAL(needToConnect(QString)),
-            client, SLOT(connectToHost(QString)));
-//  Начинает получать данные по udp
-    connect(this, SIGNAL(needToConnectUdp()),
-            client, SLOT(getUdpData()));
-//  Вызывает запрос на отключение от хоста
-    connect(this, SIGNAL(needToDisconnect()),
-            client, SLOT(disconnectFromHost()));
-//  Вызывает запрос на отключение от udp-бродкаста
+    connect(this, SIGNAL(needToConnectTcp(QString)),
+            client, SLOT(connectTcp(QString)));
+//  Вызывает запрос на подключение к хосту по udp
+    connect(this, SIGNAL(needToConnectUdp(QString)),
+            client, SLOT(connectUdp(QString)));
+//  Вызывает запрос на отключение от tcp хоста
+    connect(this, SIGNAL(needToDisconnectTcp()),
+            client, SLOT(disconnectFromTcp()));
+//  Вызывает запрос на отключение от udp хоста
     connect(this, SIGNAL(needToDisconnectUdp()),
             client, SLOT(disconnectFromUdp()));
-//  Вызывается при обнаружении отсутствия подключения по таймауту 2 сек
+//  Вызывается при обнаружении отсутствия подключения по таймауту 3 сек
     connect(client, SIGNAL(noConnection()),
             this, SLOT(unableToConnect()));
 //  Вызывается при удачном подключении
@@ -40,12 +46,10 @@ MainWindow::MainWindow(QString protocol, QWidget *parent)
 //  Вызывается при получении ошибки
     connect(client, SIGNAL(error(QString)),
             this, SLOT(printError(QString)));
-//  Вызывается при получении приветственного ответа от хоста
+//  Вызывается при получении ответа от хоста
     connect(client, SIGNAL(response(QString)),
             this, SLOT(printResponse(QString)));
 
-    connect(this, SIGNAL(changeProtocol(int)),
-            client, SLOT(newProtocol(int)));
 //  Выводит состояние подключения
 //    connect(client, SIGNAL(state(QAbstractSocket::SocketState)),
 //            this, SLOT(printState(QAbstractSocket::SocketState)));
@@ -127,16 +131,16 @@ void MainWindow::disconnectedFromHost()
 void MainWindow::on_connectButton_clicked()
 {
     if (ui->checkTcp->isChecked()) {
-        emit needToConnect(ui->ipToConnect->text());
+        emit needToConnectTcp(ui->ipToConnect->text());
     }
     if (ui->checkUdp->isChecked()) {
-        emit needToConnectUdp();
+        emit needToConnectUdp(ui->ipToConnect->text());
     }
 }
 void MainWindow::on_disconnectButton_clicked()
 {
     if (ui->checkTcp->isChecked()) {
-        emit needToDisconnect();
+        emit needToDisconnectTcp();
     }
     if (ui->checkUdp->isChecked()) {
         emit needToDisconnectUdp();

@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QDebug>
 #include <QTimer>
+#include <QFile>
+//#include<QsLog.h>
 
 // объявляет формат и способ формирования пакетов данных
 class DataSource : public QObject
@@ -18,18 +20,15 @@ public:
         QString data;
     };
     QTimer *timer = nullptr;
-
+    void procData(QString d);
 private:
-    QString cmd = "lol";
-    int length = 0;
-    QString data = "nolol";
     QString dataPacket;
 
 signals:
     void dataReceived(QString rdata);
 
 public slots:
-//    void getData();
+    void getData();
     void setData();
 
 };

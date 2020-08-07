@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtNetwork>
 #include <QString>
+//#include<QsLog.h>
 #include "datasource.h"
 
 class TCP : public QObject

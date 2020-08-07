@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtNetwork>
 #include <QString>
+//#include "QsLog.h"
 #include "datasource.h"
 
 class UDP : public QObject
@@ -11,11 +12,15 @@ class UDP : public QObject
     Q_OBJECT
 
 public:
-    explicit UDP(QObject *parent = nullptr);
+    explicit UDP(QString recip, QObject *parent = nullptr);
 
 private:
     DataSource *ds = nullptr;
     QUdpSocket *udpSocket = nullptr;
+    QHostAddress receiverIp;
+
+signals:
+    void canSend();
 
 private slots:
     void sendData(QString rdata);

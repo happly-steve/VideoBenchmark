@@ -1,4 +1,4 @@
-QT       += core gui network
+QT += core gui network multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     client.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    videoplayer.cpp
 
 HEADERS += \
     client.h \
-    mainwindow.h
+    mainwindow.h \
+    videoplayer.h
 
 FORMS += \
     mainwindow.ui
@@ -31,3 +33,10 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../qslog/ -lQsLog2
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../qslog/ -lQsLog2d
+#else:unix: LIBS += -L$$PWD/../qslog/ -lQsLog2
+
+#INCLUDEPATH += $$PWD/qslog
+#DEPENDPATH += $$PWD/qslog

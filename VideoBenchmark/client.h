@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtNetwork>
 #include <QDebug>
+//#include<QsLog.h>
 
 class Client : public QObject
 {
@@ -15,9 +16,10 @@ private:
     QString tmp;
     QTcpSocket *tcpSocket = nullptr;
     QUdpSocket *udpSocket = nullptr;
-    QString ip;
+    QHostAddress hostIp;
     QTimer *statetimer;
     QAbstractSocket::SocketState currState;
+    int proto = 1;
 
 signals:
     void noConnection();
@@ -28,13 +30,13 @@ signals:
     void state(QAbstractSocket::SocketState currState);
 
 public slots:
-    void connectToHost(QString mip);
-    void disconnectFromHost();
+    void connectTcp(QString mip);
+    void connectUdp(QString ip);
+    void disconnectFromTcp();
     void disconnectFromUdp();
     void getState();
-    void getResponse();
-    void getUdpData();
-
+    void getTcpResponse();
+    void getUdpResponse();
 };
 
 #endif // CLIENT_H
