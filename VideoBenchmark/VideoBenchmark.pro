@@ -1,4 +1,4 @@
-QT += core gui network multimedia multimediawidgets
+QT += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,7 +24,21 @@ SOURCES += \
 HEADERS += \
     client.h \
     mainwindow.h \
+<<<<<<< HEAD
+    player.h
+<<<<<<< HEAD
+=======
+    mainwindow.cpp
+
+HEADERS += \
+    client.h \
+    mainwindow.h
+>>>>>>> parent of 8cebf9e... server now has mydata class, getting rtsp stream
+=======
     videoplayer.h
+>>>>>>> parent of 92827ac... bad commit, uncompilable
+=======
+>>>>>>> parent of f1e38ef... revert
 
 FORMS += \
     mainwindow.ui
@@ -40,3 +54,61 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 #INCLUDEPATH += $$PWD/qslog
 #DEPENDPATH += $$PWD/qslog
+<<<<<<< HEAD
+
+unix|win32: LIBS += -L$$PWD/lib/ -lavcodec
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
+unix|win32: LIBS += -L$$PWD/lib/ -lavdevice
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
+unix|win32: LIBS += -L$$PWD/lib/ -lavfilter
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
+unix|win32: LIBS += -L$$PWD/lib/ -lavformat
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
+unix|win32: LIBS += -L$$PWD/lib/ -lavutil
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
+unix|win32: LIBS += -L$$PWD/lib/ -lpostproc
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
+unix|win32: LIBS += -L$$PWD/lib/ -lSDL2
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
+unix|win32: LIBS += -L$$PWD/lib/ -lSDL2main
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
+unix|win32: LIBS += -L$$PWD/lib/ -lswresample
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
+unix|win32: LIBS += -L$$PWD/lib/ -lswscale
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 8cebf9e... server now has mydata class, getting rtsp stream
+=======
+>>>>>>> parent of 92827ac... bad commit, uncompilable
+=======
+>>>>>>> parent of f1e38ef... revert

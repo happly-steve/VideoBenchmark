@@ -1,10 +1,17 @@
 #include "mainwindow.h"
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 #include "videoplayer.h"
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QCommandLineOption>
 #include <QtCore/QDir>
+>>>>>>> parent of 92827ac... bad commit, uncompilable
+=======
+>>>>>>> parent of f1e38ef... revert
 #include <QApplication>
 //#include "qslog/QsLog.h"
 //#include "qslog/QsLogDest.h"
@@ -42,6 +49,14 @@ int main(int argc, char *argv[])
     MainWindow w(str);
 
     w.show();
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of f1e38ef... revert
+    //Player *pl = new Player();
+=======
+>>>>>>> parent of 92827ac... bad commit, uncompilable
 
 //    using namespace QsLogging;
 
