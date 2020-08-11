@@ -4,7 +4,8 @@
 #include <QObject>
 #include <QtNetwork>
 #include <QString>
-//#include "QsLog.h"
+#include "qslog/QsLog.h"
+#include "QsLog.h"
 #include "datasource.h"
 
 class UDP : public QObject

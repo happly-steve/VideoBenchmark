@@ -26,10 +26,6 @@ public:
     char *data;
     void run();
 
-signals:
-
-private slots:
-
 };
 
 #endif // MYDATA_H

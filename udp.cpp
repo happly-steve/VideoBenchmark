@@ -9,11 +9,10 @@ UDP::UDP(QString recIp, QObject *parent) : QObject(parent)
     connect(ds, SIGNAL(dataReceived(QString)),
             this, SLOT(sendData(QString)));
 
-
 }
 void UDP::sendData(QString rdata)
 {
     QByteArray sData = rdata.toLatin1();
     udpSocket->writeDatagram(sData, receiverIp, 9877);
-    qDebug() << "Send UDP data" << sData;
+    QLOG_DEBUG() << "Send UDP data" << sData;
 }

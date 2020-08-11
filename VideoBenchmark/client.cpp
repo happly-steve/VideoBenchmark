@@ -26,7 +26,7 @@ Client::Client(QString protocol, QObject *parent) : QObject(parent)
 
         default:
             emit error("Wrong protocol");
-            qDebug() << "Wrong protocol";
+            QLOG_DEBUG() << "Wrong protocol";
         break;
     }
     statetimer = new QTimer();
@@ -75,7 +75,7 @@ void Client::getState()
         currState = udpSocket->state();
     }
 //  emit state(currState);
-    qDebug() << currState;
+   QLOG_DEBUG() << currState;
     emit noConnection();
     if (proto == 1) {
         connectTcp(hostIp.toString());
@@ -106,4 +106,12 @@ void Client::getUdpResponse()
         }
         emit response(tmp);
     }
+}
+
+void Client::getStream()
+{
+    //char stream[] = "rtsp://admin:q1w2e3r4@91.226.107.146:554/Streaming/Channels/1302";
+    Player *pl;
+    pl = new Player();
+    QThreadPool::globalInstance()->start(pl);
 }

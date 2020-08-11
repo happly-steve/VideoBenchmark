@@ -106,18 +106,19 @@ int videortsp() {
                     {
                 sws_scale(img_convert_ctx, picture->data, picture->linesize, 0,
                         codec_ctx->height, picture_rgb->data, picture_rgb->linesize);
-                std::stringstream file_name;
-                file_name << "test" << cnt << ".ppm";
-                output_file.open(file_name.str().c_str());
-                output_file << "P3 " << codec_ctx->width << " " << codec_ctx->height
-                        << " 255\n";
-                for (int y = 0; y < codec_ctx->height; y++) {
-                    for (int x = 0; x < codec_ctx->width * 3; x++)
-                        output_file
-                                << (int) (picture_rgb->data[0]
-                                        + y * picture_rgb->linesize[0])[x] << " ";
-                }
-                output_file.close();
+//                std::stringstream file_name;
+//                file_name << "test" << cnt << ".ppm";
+//                output_file.open(file_name.str().c_str());
+//                output_file << "P3 " << codec_ctx->width << " " << codec_ctx->height
+//                        << " 255\n";
+//                for (int y = 0; y < codec_ctx->height; y++) {
+//                    for (int x = 0; x < codec_ctx->width * 3; x++)
+//                        output_file
+//                                << (int) (picture_rgb->data[0]
+//                                        + y * picture_rgb->linesize[0])[x] << " ";
+//                }
+//                output_file.close();
+
                 std::stringstream file;
                 std::ofstream fcnt;
                 file << "Framecount.txt";

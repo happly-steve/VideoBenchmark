@@ -1,0 +1,56 @@
+﻿  Reading Qt configuration (C:\Qt\5.15.0\msvc2019\bin\qmake.exe)
+  main.cpp
+  mydata.cpp
+  qslog.cpp
+  qslogdest.cpp
+  qslogdestconsole.cpp
+  qslogdestfile.cpp
+  qslogdestfunctor.cpp
+  qsloglevel.cpp
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(162,1): warning C4005: SIZE_MAX: изменение макроопределения (компилируется исходный файл qslog\qslog.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\limits.h(65): message : см. предыдущее определение "SIZE_MAX" (компилируется исходный файл qslog\qslog.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(162,1): warning C4005: SIZE_MAX: изменение макроопределения (компилируется исходный файл qslog\qsloglevel.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\limits.h(65): message : см. предыдущее определение "SIZE_MAX" (компилируется исходный файл qslog\qsloglevel.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(162,1): warning C4005: SIZE_MAX: изменение макроопределения (компилируется исходный файл qslog\qslogdestconsole.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\limits.h(65): message : см. предыдущее определение "SIZE_MAX" (компилируется исходный файл qslog\qslogdestconsole.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(162,1): warning C4005: SIZE_MAX: изменение макроопределения (компилируется исходный файл mydata.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\limits.h(65): message : см. предыдущее определение "SIZE_MAX" (компилируется исходный файл mydata.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(162,1): warning C4005: SIZE_MAX: изменение макроопределения (компилируется исходный файл qslog\qslogdestfile.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\limits.h(65): message : см. предыдущее определение "SIZE_MAX" (компилируется исходный файл qslog\qslogdestfile.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(162,1): warning C4005: SIZE_MAX: изменение макроопределения (компилируется исходный файл qslog\qslogdest.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\limits.h(65): message : см. предыдущее определение "SIZE_MAX" (компилируется исходный файл qslog\qslogdest.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(162,1): warning C4005: SIZE_MAX: изменение макроопределения (компилируется исходный файл qslog\qslogdestfunctor.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\limits.h(65): message : см. предыдущее определение "SIZE_MAX" (компилируется исходный файл qslog\qslogdestfunctor.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(162,1): warning C4005: SIZE_MAX: изменение макроопределения (компилируется исходный файл main.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\limits.h(65): message : см. предыдущее определение "SIZE_MAX" (компилируется исходный файл main.cpp)
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h(33,1): warning C4005: WCHAR_MIN: изменение макроопределения (компилируется исходный файл mydata.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(165): message : см. предыдущее определение "WCHAR_MIN" (компилируется исходный файл mydata.cpp)
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h(33,1): warning C4005: WCHAR_MIN: изменение макроопределения (компилируется исходный файл qslog\qslogdestconsole.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(165): message : см. предыдущее определение "WCHAR_MIN" (компилируется исходный файл qslog\qslogdestconsole.cpp)
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h(33,1): warning C4005: WCHAR_MIN: изменение макроопределения (компилируется исходный файл qslog\qsloglevel.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(165): message : см. предыдущее определение "WCHAR_MIN" (компилируется исходный файл qslog\qsloglevel.cpp)
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h(33,1): warning C4005: WCHAR_MIN: изменение макроопределения (компилируется исходный файл qslog\qslog.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(165): message : см. предыдущее определение "WCHAR_MIN" (компилируется исходный файл qslog\qslog.cpp)
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h(33,1): warning C4005: WCHAR_MIN: изменение макроопределения (компилируется исходный файл qslog\qslogdest.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(165): message : см. предыдущее определение "WCHAR_MIN" (компилируется исходный файл qslog\qslogdest.cpp)
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h(33,1): warning C4005: WCHAR_MIN: изменение макроопределения (компилируется исходный файл qslog\qslogdestfunctor.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(165): message : см. предыдущее определение "WCHAR_MIN" (компилируется исходный файл qslog\qslogdestfunctor.cpp)
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h(33,1): warning C4005: WCHAR_MIN: изменение макроопределения (компилируется исходный файл main.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(165): message : см. предыдущее определение "WCHAR_MIN" (компилируется исходный файл main.cpp)
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h(33,1): warning C4005: WCHAR_MIN: изменение макроопределения (компилируется исходный файл qslog\qslogdestfile.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(165): message : см. предыдущее определение "WCHAR_MIN" (компилируется исходный файл qslog\qslogdestfile.cpp)
+  qslogmessage.cpp
+C:\Users\Admin\Documents\VideoBenchmarkServer\mydata.cpp(30,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(162,1): warning C4005: SIZE_MAX: изменение макроопределения (компилируется исходный файл qslog\qslogmessage.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\limits.h(65): message : см. предыдущее определение "SIZE_MAX" (компилируется исходный файл qslog\qslogmessage.cpp)
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h(33,1): warning C4005: WCHAR_MIN: изменение макроопределения (компилируется исходный файл qslog\qslogmessage.cpp)
+C:\Users\Admin\Documents\VideoBenchmarkServer\include\stdint.h(165): message : см. предыдущее определение "WCHAR_MIN" (компилируется исходный файл qslog\qslogmessage.cpp)
+qslogdestfunctor.obj : error LNK2001: неразрешенный внешний символ "public: virtual struct QMetaObject const * __thiscall QsLogging::FunctorDestination::metaObject(void)const " (?metaObject@FunctorDestination@QsLogging@@UBEPBUQMetaObject@@XZ).
+qslogdestfunctor.obj : error LNK2001: неразрешенный внешний символ "public: virtual void * __thiscall QsLogging::FunctorDestination::qt_metacast(char const *)" (?qt_metacast@FunctorDestination@QsLogging@@UAEPAXPBD@Z).
+qslogdestfunctor.obj : error LNK2001: неразрешенный внешний символ "public: virtual int __thiscall QsLogging::FunctorDestination::qt_metacall(enum QMetaObject::Call,int,void * *)" (?qt_metacall@FunctorDestination@QsLogging@@UAEHW4Call@QMetaObject@@HPAPAX@Z).
+qslogdestfunctor.obj : error LNK2019: ссылка на неразрешенный внешний символ "protected: void __thiscall QsLogging::FunctorDestination::logMessageReady(struct QsLogging::LogMessage const &)" (?logMessageReady@FunctorDestination@QsLogging@@IAEXABULogMessage@2@@Z) в функции "public: virtual void __thiscall QsLogging::FunctorDestination::write(struct QsLogging::LogMessage const &)" (?write@FunctorDestination@QsLogging@@UAEXABULogMessage@2@@Z).
+tcp.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall DataSource::DataSource(class QObject *)" (??0DataSource@@QAE@PAVQObject@@@Z) в функции "public: __thiscall TCP::TCP(class QObject *)" (??0TCP@@QAE@PAVQObject@@@Z).
+udp.obj : error LNK2001: неразрешенный внешний символ "public: __thiscall DataSource::DataSource(class QObject *)" (??0DataSource@@QAE@PAVQObject@@@Z).
+moc_datasource.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall DataSource::getData(void)" (?getData@DataSource@@QAEXXZ) в функции "private: static void __cdecl DataSource::qt_static_metacall(class QObject *,enum QMetaObject::Call,int,void * *)" (?qt_static_metacall@DataSource@@CAXPAVQObject@@W4Call@QMetaObject@@HPAPAX@Z).
+moc_datasource.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall DataSource::setData(void)" (?setData@DataSource@@QAEXXZ) в функции "private: static void __cdecl DataSource::qt_static_metacall(class QObject *,enum QMetaObject::Call,int,void * *)" (?qt_static_metacall@DataSource@@CAXPAVQObject@@W4Call@QMetaObject@@HPAPAX@Z).
+debug\\VideoBenchmarkServer.exe : fatal error LNK1120: неразрешенных внешних элементов: 7

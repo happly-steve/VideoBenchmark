@@ -4,7 +4,8 @@
 #include <QObject>
 #include <QtNetwork>
 #include <QDebug>
-//#include<QsLog.h>
+#include "player.h"
+#include <qslog/QsLog.h>
 
 class Client : public QObject
 {
@@ -20,6 +21,7 @@ private:
     QTimer *statetimer;
     QAbstractSocket::SocketState currState;
     int proto = 1;
+    //char streamname[];
 
 signals:
     void noConnection();
@@ -37,6 +39,7 @@ public slots:
     void getState();
     void getTcpResponse();
     void getUdpResponse();
+    void getStream();
 };
 
 #endif // CLIENT_H

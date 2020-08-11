@@ -1,12 +1,11 @@
 #include "tcp.h"
 
-
 TCP::TCP(QObject *parent) : QObject(parent)
 {
     ds = new DataSource();
+    tcpSocket = new QTcpSocket(this);
     tcpServer = new QTcpServer(this);
     tcpServer->listen(QHostAddress::Any, 5000);
-    tcpSocket = new QTcpSocket();
 //  Принимает данные по сигналу источника данных и передает их клиенту
     connect(ds, SIGNAL(dataReceived(QString)),
             this, SLOT(sendData(QString)));
@@ -26,7 +25,7 @@ void TCP::onNewConnection()
 }
 void TCP::onError(QAbstractSocket::SocketError err)
 {
-//    QLOG_DEBUG() << tcpServer->errorString();
+    QLOG_DEBUG() << tcpServer->errorString();
 }
 void TCP::sendResponse()
 {

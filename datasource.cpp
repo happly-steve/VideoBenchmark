@@ -21,30 +21,34 @@ void DataSource::getData()
 {
     QFile file("Framecount.txt");
     if (file.exists()) {
-      if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-           return;
-      int prevframes = 0;
-      int prevbytes = 0;
-      int frames = 0;
-      int bytes = 0;
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
+
         while (!file.atEnd()) {
             QByteArray tmp = file.readLine();
             QString line = QString(tmp);
             if (line.contains("Frames:")) {
+                prevframes = frames;
                 line.remove(0, line.indexOf(":")+1);
                 line.remove(line.length()-2, line.length());
-                prevframes = frames;
-                frames = line.toInt() - prevframes;
+                frames = line.toInt();
+                frres = frames - prevframes;
             }
             if (line.contains("Bytes decoded:")) {
+                prevbytes = bytes;
                 line.remove(0, line.indexOf(":")+1);
                 line.remove(line.length()-2, line.length());
-                prevbytes = bytes;
-                bytes = line.toInt() - prevbytes;
+                bytes = line.toInt();
+                byres = bytes - prevbytes;
             }
-            procData("Frames:" + QString::number(frames) + ", Bytes decoded:" + QString::number(bytes));
         }
         file.close();
+        QLOG_DEBUG() << frres;
+        QLOG_DEBUG() << byres;
+        procData("Frames:" +
+                 QString::number(frres) +
+                 ", Bytes decoded:" +
+                 QString::number(byres));
     }
 }
 void DataSource::procData(QString d) {

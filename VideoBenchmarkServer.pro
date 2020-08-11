@@ -1,16 +1,13 @@
 QT -= gui
-QT += network \
-    widgets multimedia multimediawidgets
+QT += core network
 CONFIG += c++11 console
-CONFIG -= app_bundle
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS __STDC_LIMIT_MACROS
-
-
+include(qslog/QsLog.pri)
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -21,7 +18,6 @@ SOURCES += \
         mydata.cpp \
         tcp.cpp \
         udp.cpp \
-        videoplayer.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -32,16 +28,10 @@ HEADERS += \
     datasource.h \
     mydata.h \
     packet.h \
+    qslog/QsLog.h \
+    qslog/QsLogDest.h \
     tcp.h \
     udp.h \
-    videoplayer.h
-
-#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/qslog/ -lQsLog2
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/qslog/ -lQsLog2d
-#else:unix: LIBS += -L$$PWD/qslog/ -lQsLog2
-
-#INCLUDEPATH += $$PWD/qslog
-#DEPENDPATH += $$PWD/qslog
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/ -lavcodec
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/ -lavcodec
@@ -112,3 +102,4 @@ else:unix: LIBS += -L$$PWD/lib/ -lswscale
 
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
+

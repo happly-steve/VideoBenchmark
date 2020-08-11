@@ -1,6 +1,4 @@
 #include "mainwindow.h"
-
-
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QString protocol, QWidget *parent)
@@ -9,9 +7,6 @@ MainWindow::MainWindow(QString protocol, QWidget *parent)
 {
     ui->setupUi(this);
     ui->scrollArea->setWidget(ui->logLabel);
-
-
-
 
     if (protocol == "tcp") {
         ui->checkTcp->setChecked(true);
@@ -22,6 +17,10 @@ MainWindow::MainWindow(QString protocol, QWidget *parent)
         ui->checkUdp->setChecked(true);
     }
     client = new Client(protocol);
+    series1 = new QLineSeries();
+    series2 = new QLineSeries();
+    chartView1 = new QChartView();
+    chartView2 = new QChartView();
 //  Вызывает запрос на подключение к хосту по tcp
     connect(this, SIGNAL(needToConnectTcp(QString)),
             client, SLOT(connectTcp(QString)));
@@ -50,6 +49,14 @@ MainWindow::MainWindow(QString protocol, QWidget *parent)
     connect(client, SIGNAL(response(QString)),
             this, SLOT(printResponse(QString)));
 
+    connect(client, SIGNAL(response(QString)),
+            this, SLOT(drawCharts(QString)));
+
+    connect(this, SIGNAL(canShow(QChart*, QChart*)),
+            this, SLOT(showCharts(QChart*, QChart*)));
+
+    connect(this, SIGNAL(needStream()),
+            client, SLOT(getStream()));
 //  Выводит состояние подключения
 //    connect(client, SIGNAL(state(QAbstractSocket::SocketState)),
 //            this, SLOT(printState(QAbstractSocket::SocketState)));
@@ -120,6 +127,39 @@ void MainWindow::unableToConnect()
                                   ui->logLabel->width()/6,
                                   ui->logLabel->height()/4);
 }
+
+void MainWindow::drawCharts(QString data)
+{
+
+    QChart *chart1 = new QChart();
+    QChart *chart2 = new QChart();
+    //TODO: get ints of frames and bytes and draw charts for them continously
+    int frames = data.remove(data.indexOf("Frames:"), 7).toInt();
+    int bytes = data.remove(data.indexOf("Bytes decoded:"), 14).toInt();
+    QLOG_DEBUG() << frames;
+    QLOG_DEBUG() << bytes;
+    *series1 << QPointF(n, frames);
+    *series2 << QPointF(n, bytes);
+    n++;
+    chart1->legend()->hide();
+    chart1->addSeries(series1);
+    chart1->createDefaultAxes();
+    chart2->legend()->hide();
+    chart2->addSeries(series2);
+    chart2->createDefaultAxes();
+    emit canShow(chart1, chart2);
+
+}
+void MainWindow::showCharts(QChart *chart1, QChart *chart2){
+    chartView1->setChart(chart1);
+    chartView2->setChart(chart2);
+    chartView1->setParent(ui->chartWidget);
+    chartView2->setParent(ui->chartWidget2);
+    chartView1->setRenderHint(QPainter::Antialiasing);
+    chartView2->setRenderHint(QPainter::Antialiasing);
+    chartView1->show();
+    chartView2->show();
+}
 void MainWindow::connectedToHost()
 {
     ui->status->setText("Connected");
@@ -149,4 +189,9 @@ void MainWindow::on_disconnectButton_clicked()
 void MainWindow::on_clearButton_clicked()
 {
     ui->logLabel->setText("");
+}
+
+void MainWindow::on_videoButton_clicked()
+{
+    emit needStream();
 }
