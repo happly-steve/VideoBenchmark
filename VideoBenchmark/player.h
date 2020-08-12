@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QRunnable>
 #include <stdio.h>
+#include <qslog/QsLog.h>
 
 #define __STDC_CONSTANT_MACROS
 

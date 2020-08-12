@@ -2114,10 +2114,7 @@ void av_set_pts_info(AVStream *s, int pts_wrap_bits,
 #define AVSEEK_FLAG_ANY      4 ///< seek to any frame, even non-keyframes
 #define AVSEEK_FLAG_FRAME    8 ///< seeking based on frame number
 
-/**
- * @addtogroup lavf_encoding
- * @{
- */
+
 /**
  * Allocate the stream private data and write the stream header to
  * an output media file.
@@ -2132,6 +2129,10 @@ void av_set_pts_info(AVStream *s, int pts_wrap_bits,
  * @return 0 on success, negative AVERROR on failure.
  *
  * @see av_opt_find, av_dict_set, avio_open, av_oformat_next.
+ */
+/**
+ * @addtogroup lavf_encoding
+ * @{
  */
 int avformat_write_header(AVFormatContext *s, AVDictionary **options);
 

@@ -15,9 +15,9 @@ int videortsp() {
     av_register_all();
     avformat_network_init();
 
-    //open RTSP out.mp4
+    //open RTSP
     if (avformat_open_input(&format_ctx,
-        "rtsp://admin:q1w2e3r4@91.226.107.146:554/Streaming/Channels/1302",
+        "rtsp://192.168.1.108/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp?real_stream",
         NULL, NULL) != 0) {
         return EXIT_FAILURE;
     }
@@ -78,6 +78,7 @@ int videortsp() {
     avpicture_fill((AVPicture *) picture_rgb, picture_buffer_2, AV_PIX_FMT_RGB24,
             codec_ctx->width, codec_ctx->height);
     long int result = 0;
+    //TODO: read frames somewhere
     while (av_read_frame(format_ctx, &packet) >= 0) { //read ~ 1000 frames
 
         //std::cout << "1 Frame: " << cnt << std::endl;
@@ -143,8 +144,31 @@ int videortsp() {
 
     return (EXIT_SUCCESS);
 }
+void receivestream() {
+    STARTUPINFO info = { sizeof(info) };
+    PROCESS_INFORMATION processInfo;
+    wchar_t buf[MAX_PATH];
+    wcscpy_s(buf,
+    L"ffmpeg -i rtsp://192.168.1.108/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp?real_stream test.mp4");
+    //std::wstring rt = L"ffmpeg -rtsp_flags listen -i rtsp://ownaddress/live.sdp test.mp4";
+    if( !CreateProcess(0,
+                       buf,
+                       NULL,
+                       NULL,
+                       true,
+                       0,
+                       NULL,
+                       NULL,
+                       &info,
+                       &processInfo))
+    {
+        printf( "CreateProcess failed (%d).\n", GetLastError() );
+        return;
+    }
+}
 void MyData::run() {
-    videortsp();
+    //videortsp();
+    receivestream();
 }
 
 

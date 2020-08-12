@@ -48,9 +48,9 @@ int videoPlay()
         SDL_Event event;
 
         struct SwsContext *img_convert_ctx;
-
-        //char streamname[]="bigbuckbunny_480x272.h265";
-        char streamname[]= "rtsp://admin:q1w2e3r4@91.226.107.146:554/Streaming/Channels/1302";
+        // TODO: set protocol depending on cmd args
+        char streamname[]="udp://localhost:9878";
+        //char streamname[]= "rtsp://192.168.1.108/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp?real_stream";
 
         av_register_all();
         avformat_network_init();
@@ -58,10 +58,12 @@ int videoPlay()
 
         if(avformat_open_input(&pFormatCtx,streamname,NULL,NULL)!=0){
             printf("Couldn't open input stream.\n");
+            QLOG_DEBUG() << "Couldn't open input stream.\n";
             return -1;
         }
         if(avformat_find_stream_info(pFormatCtx,NULL)<0){
             printf("Couldn't find stream information.\n");
+            QLOG_DEBUG() << "Couldn't find stream information.\n";
             return -1;
         }
         videoindex=-1;
@@ -72,16 +74,19 @@ int videoPlay()
             }
         if(videoindex==-1){
             printf("Didn't find a video stream.\n");
+            QLOG_DEBUG() << "Didn't find a video stream.\n";
             return -1;
         }
         pCodecCtx=pFormatCtx->streams[videoindex]->codec;
         pCodec=avcodec_find_decoder(pCodecCtx->codec_id);
         if(pCodec==NULL){
             printf("Codec not found.\n");
+            QLOG_DEBUG() << "Codec not found.\n";
             return -1;
         }
         if(avcodec_open2(pCodecCtx, pCodec,NULL)<0){
             printf("Could not open codec.\n");
+            QLOG_DEBUG() << "Could not open codec.\n";
             return -1;
         }
         pFrame=av_frame_alloc();
@@ -102,6 +107,7 @@ int videoPlay()
 
         if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) {
             printf( "Could not initialize SDL - %s\n", SDL_GetError());
+            QLOG_DEBUG() << "Could not initialize SDL - %s\n";
             return -1;
         }
         //SDL 2.0 Support for multiple windows
@@ -112,6 +118,7 @@ int videoPlay()
 
         if(!screen) {
             printf("SDL: could not create window - exiting:%s\n",SDL_GetError());
+            QLOG_DEBUG() << "SDL: could not create window - exiting:%s\n";
             return -1;
         }
         sdlRenderer = SDL_CreateRenderer(screen, -1, 0);
@@ -144,6 +151,7 @@ int videoPlay()
                 ret = avcodec_decode_video2(pCodecCtx, pFrame, &got_picture, packet);
                 if(ret < 0){
                     printf("Decode Error.\n");
+                    QLOG_DEBUG() << "Decode Error.\n";
                     return -1;
                 }
                 if(got_picture){

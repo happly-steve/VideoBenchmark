@@ -4,6 +4,7 @@
 #include "tcp.h"
 #include "udp.h"
 #include "mydata.h"
+#include "restream.h"
 #include "qslog/QsLog.h"
 #include "qslog/QsLogDest.h"
 #include "qslog/QsLogMessage.h"
@@ -26,10 +27,12 @@ int main(int argc, char *argv[])
         udp = new UDP(arg2);
     }
 
-    MyData *video;
-    video = new MyData();
-    QThreadPool::globalInstance()->start(video);
-
+//    MyData *video;
+//    video = new MyData();
+//    QThreadPool::globalInstance()->start(video);
+    ReStream *restream;
+    restream = new ReStream();
+    QThreadPool::globalInstance()->start(restream);
 
     using namespace QsLogging;
 

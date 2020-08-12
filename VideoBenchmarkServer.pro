@@ -16,6 +16,7 @@ SOURCES += \
         datasource.cpp \
         main.cpp \
         mydata.cpp \
+    restream.cpp \
         tcp.cpp \
         udp.cpp \
 
@@ -30,6 +31,7 @@ HEADERS += \
     packet.h \
     qslog/QsLog.h \
     qslog/QsLogDest.h \
+    restream.h \
     tcp.h \
     udp.h \
 
